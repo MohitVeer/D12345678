@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Otp Generator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> 
+    
+</head>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+form {border: 3px solid #f1f1f1;}
+
+.container{
+    max-width: 1100px ;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+input[type=tel] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+
+
+
+</style>
+<body>
+  
+  <div class="container">
+<h2>OTP Generation page</h2>
+<div class="container">
+<label for="tel"><b>Mobile Number</b></label>
+<input type="tel" id="mobile_no" placeholder="Enter Mobile Number" name="tel" required>
+    
+<button type="submit" id="btnOTP">Generate Otp</button>
+
+</div>
+
+<p > Your OTP is <span id="otp"> </span> </p>
+</div>
+
+
+<script>
+$("#btnOTP").on('click', function(){
+  var mobile_no = $("#mobile_no").val();
+  var raw_data={"mobile":mobile_no};
+  $("#otp").text('');
+  $.ajax('http://deerika.djtretailers.com/authentication/guest-user-login',{
+    data: JSON.stringify(raw_data),
+    type:'POST',    
+    processData:false,
+    contentType:'applicaton/json',
+    success: function(data) {
+   
+      
+      console.log(data);
+      $("#otp").append(data.data.otp);
+     
+      }
+  });
+});
+</script>
+</body>
+</html>
